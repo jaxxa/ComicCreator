@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace ComicCreator
 
             foreach (string _SubFolder in _SubFolders)
             {
-
+                this.RenameFiles(_SubFolder);
                 using (ZipFile zip = new ZipFile())
                 {
                     //zip.AddDirectory(@"D:\ComicDL\Aoki Hagane No Arpeggio\Chapter 001");
@@ -37,6 +38,71 @@ namespace ComicCreator
                 }
 
             }
+
+        }
+
+        private void RenameFiles(string _SubFolder)
+        {
+
+            var _FilePaths = Directory.GetFiles(_SubFolder);
+            foreach (string _InitialFilePath in _FilePaths)
+            {
+                var _NameWithoutExtention = System.IO.Path.GetFileNameWithoutExtension(_InitialFilePath);
+                
+                string _Destination;
+                switch (_NameWithoutExtention)
+                {
+                    case "1":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+                        break;
+                    case "2":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+
+                        break;
+                    case "3":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+
+                        break;
+                    case "4":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+
+                        break;
+                    case "5":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+
+                        break;
+                    case "6":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+
+                        break;
+                    case "7":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+
+                        break;
+                    case "8":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+
+                        break;
+                    case "9":
+                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
+                        File.Move(_InitialFilePath, _Destination);
+
+                        break;
+                }
+
+                //System.IO.File.Move(oldNameFullPath, newNameFullPath);
+
+            }
+
+            System.Threading.Thread.Sleep(1000);
 
         }
     }
