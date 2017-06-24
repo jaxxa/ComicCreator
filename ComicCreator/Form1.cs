@@ -24,7 +24,7 @@ namespace ComicCreator
 
             //Iterate through Source
             //System.IO.DirectoryInfo = BN
-            var _SubFolders = System.IO.Directory.GetDirectories(@"D:\ComicDL\~Source\Aoki Hagane No Arpeggio");
+            var _SubFolders = System.IO.Directory.GetDirectories(@"D:\ComicDL\Psycho Pass Kanshikan Kougami Shinya");
 
             foreach (string _SubFolder in _SubFolders)
             {
@@ -39,71 +39,47 @@ namespace ComicCreator
 
             }
 
-        }
+        } //button1_Click
 
         private void RenameFiles(string _SubFolder)
         {
 
-            var _FilePaths = Directory.GetFiles(_SubFolder);
+            string[] _FilePaths = Directory.GetFiles(_SubFolder);
+
+            int _MaxFileLength = this.GetMaxNameLength(_FilePaths);
+
             foreach (string _InitialFilePath in _FilePaths)
             {
-                var _NameWithoutExtention = System.IO.Path.GetFileNameWithoutExtension(_InitialFilePath);
-                
-                string _Destination;
-                switch (_NameWithoutExtention)
+                string _NameWithoutExtention = System.IO.Path.GetFileNameWithoutExtension(_InitialFilePath);
+                string _Extention = Path.GetExtension(_InitialFilePath);
+                int _Length = _NameWithoutExtention.Length;
+
+                if (_Length < _MaxFileLength)
                 {
-                    case "1":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-                        break;
-                    case "2":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-
-                        break;
-                    case "3":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-
-                        break;
-                    case "4":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-
-                        break;
-                    case "5":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-
-                        break;
-                    case "6":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-
-                        break;
-                    case "7":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-
-                        break;
-                    case "8":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-
-                        break;
-                    case "9":
-                        _Destination = _SubFolder + "\\0" + _NameWithoutExtention + ".jpg";
-                        File.Move(_InitialFilePath, _Destination);
-
-                        break;
+                    string _Destination = _SubFolder + "\\" + new string('0', _MaxFileLength - _Length) + _NameWithoutExtention + _Extention;
+                    File.Move(_InitialFilePath, _Destination);
                 }
-
-                //System.IO.File.Move(oldNameFullPath, newNameFullPath);
-
             }
 
+            //Just incase renames are still being done before zipping.
             System.Threading.Thread.Sleep(1000);
 
-        }
+        } //RenameFiles
+        
+        private int GetMaxNameLength(string[] filePaths)
+        {
+            // Convert this to LINQ?
+            int _MaxLength = 0;
+
+            foreach (string _InitialFilePath in filePaths)
+            {
+                string _NameWithoutExtention = System.IO.Path.GetFileNameWithoutExtension(_InitialFilePath);
+                if (_NameWithoutExtention.Length > _MaxLength)
+                {
+                    _MaxLength = _NameWithoutExtention.Length;
+                }
+            }
+            return _MaxLength;
+        } //GetMaxNameLength
     }
 }
