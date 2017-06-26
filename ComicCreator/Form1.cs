@@ -21,10 +21,15 @@ namespace ComicCreator
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             //Iterate through Source
             //System.IO.DirectoryInfo = BN
-            var _SubFolders = System.IO.Directory.GetDirectories(@"D:\ComicDL\Psycho Pass Kanshikan Kougami Shinya");
+            //var _SubFolders = System.IO.Directory.GetDirectories(@"D:\ComicDL\Psycho Pass Kanshikan Kougami Shinya");
+
+            string _Path = txbxPath.Text;
+            var _SubFolders = System.IO.Directory.GetDirectories(_Path);
+
+            string _FolderName = System.IO.Path.GetFileName(_Path);
+
 
             foreach (string _SubFolder in _SubFolders)
             {
@@ -33,11 +38,13 @@ namespace ComicCreator
                 {
                     //zip.AddDirectory(@"D:\ComicDL\Aoki Hagane No Arpeggio\Chapter 001");
                     zip.AddDirectory(_SubFolder);
-                    string _OutputFullPath = @"D:\ComicDL\~Output\" + System.IO.Path.GetFileName(_SubFolder) + ".cbz";
+                    string _OutputFullPath = @"D:\ComicDL\~Output\" + _FolderName + " - " + System.IO.Path.GetFileName(_SubFolder) + ".cbz";
                     zip.Save(_OutputFullPath);
                 }
 
             }
+
+            MessageBox.Show("Done");
 
         } //button1_Click
 
